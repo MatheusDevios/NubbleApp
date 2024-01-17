@@ -1,9 +1,10 @@
 import React from 'react';
 import {SafeAreaView, View} from 'react-native';
 import {Text} from './src/components/Text/Text';
-import {Button} from './src/components/Button/Button';
 import {ThemeProvider} from '@shopify/restyle';
 import {theme} from './src/theme/theme';
+import {Box} from './src/components/Box/Box';
+import {Icon} from './src/components/Icon/Icon';
 
 function App(): JSX.Element {
   return (
@@ -13,12 +14,10 @@ function App(): JSX.Element {
           <Text bold preset="paragraphMedium">
             Matheus
           </Text>
-          <Button title="Primary" marginTop="s24" />
-          <Button disabled title="Primary" marginTop="s24" />
-          <Button loading title="Primary" marginTop="s24" />
-          <Button title="Outline" preset="outline" marginTop="s24" />
-          <Button disabled title="Outline" preset="outline" marginTop="s24" />
-          <Button loading title="Outline" preset="outline" marginTop="s24" />
+          <Box flexDirection="row">
+            <Icon name="chevronRight" />
+            <Icon name="chatOn" />
+          </Box>
         </View>
       </SafeAreaView>
     </ThemeProvider>
