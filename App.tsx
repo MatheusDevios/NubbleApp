@@ -23,7 +23,12 @@ function App(): JSX.Element {
             <TextInput placeholder="Email" label="Email" />
           </Box>
           <Box>
-            <TextInput placeholder="password" label="Password" icon />
+            <TextInput
+              placeholder="password"
+              label="Password"
+              RightComponent={<Icon name="eyeOn" color="gray2" />}
+              errorMessage="Error Message"
+            />
           </Box>
           <Text mt="s10" color="primary" preset="paragraphSmall" bold mb="s48">
             Forgot password
