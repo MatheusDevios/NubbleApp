@@ -19,18 +19,15 @@ function App(): JSX.Element {
           <Text preset="paragraphLarge" mb="s40">
             Please type your email and password to login.
           </Text>
-          <Box mb="s20">
-            <TextInput placeholder="Email" label="Email" />
-          </Box>
-          <Box>
-            <TextInput
-              placeholder="password"
-              label="Password"
-              RightComponent={<Icon name="eyeOn" color="gray2" />}
-              errorMessage="Error Message"
-            />
-          </Box>
-          <Text mt="s10" color="primary" preset="paragraphSmall" bold mb="s48">
+          <TextInput boxProps={{mb: 's20'}} placeholder="Email" label="Email" />
+          <TextInput
+            placeholder="password"
+            label="Password"
+            RightComponent={<Icon name="eyeOn" color="gray2" />}
+            errorMessage="Error Message"
+            boxProps={{mb: 's10'}}
+          />
+          <Text color="primary" preset="paragraphSmall" bold mb="s48">
             Forgot password
           </Text>
           <Button title="Login" mb="s12" />
