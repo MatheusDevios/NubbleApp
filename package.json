@@ -5,6 +5,7 @@
   "scripts": {
     "android": "react-native run-android",
     "ios": "react-native run-ios",
+    "ios15": "react-native run-ios --simulator \"iPhone 15 Pro Max\"",
     "lint": "eslint .",
     "start": "react-native start",
     "test": "jest"
@@ -13,6 +14,7 @@
     "@shopify/restyle": "^2.4.2",
     "react": "18.2.0",
     "react-native": "0.72.7",
+    "react-native-safe-area-context": "^4.9.0",
     "react-native-svg": "^14.1.0"
   },
   "devDependencies": {
