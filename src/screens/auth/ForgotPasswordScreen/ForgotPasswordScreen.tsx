@@ -1,18 +1,22 @@
+import React from 'react';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {Button} from '../../../components/Button/Button';
 import {Screen} from '../../../components/Screen/Screen';
 import {Text} from '../../../components/Text/Text';
 import {TextInput} from '../../../components/TextInput/TextInput';
 import {RootStackParamList} from '../../../routes/Routes';
+import {useResetNavigationSuccess} from '../../../hooks/useResetNavigationSuccess';
 
 type ScreenProps = NativeStackScreenProps<
   RootStackParamList,
   'ForgotPasswordScreen'
 >;
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const ForgotPasswordScreen = ({navigation}: ScreenProps) => {
+  const {reset} = useResetNavigationSuccess();
   const submitForm = () => {
-    navigation.navigate('SuccessScreen', {
+    reset({
       title: 'Check your email',
       description: 'We sent you the instructions to modify your password.',
       icon: {name: 'messageRound', color: 'primary'},

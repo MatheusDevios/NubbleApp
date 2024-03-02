@@ -6,15 +6,18 @@ import {Button} from '../../../components/Button/Button';
 import {PasswordInput} from '../../../components/PasswordInput/PasswordInput';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../../routes/Routes';
+import {useResetNavigationSuccess} from '../../../hooks/useResetNavigationSuccess';
 
 type ScreenProps = NativeStackScreenProps<RootStackParamList, 'SignUpScreen'>;
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function SignUpScreen({navigation}: ScreenProps) {
+  const {reset} = useResetNavigationSuccess();
   function submitForm() {
-    navigation.navigate('SuccessScreen', {
+    reset({
       title: 'Sign Up Successful.',
       description: 'You have successfully signed up.',
-      icon: {name: 'messageRound', color: 'success'},
+      icon: {name: 'checkRound', color: 'success'},
     });
   }
   return (
