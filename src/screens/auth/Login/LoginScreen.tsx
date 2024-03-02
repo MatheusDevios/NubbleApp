@@ -1,11 +1,15 @@
 import React from 'react';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {Text} from '../../../components/Text/Text';
 import {TextInput} from '../../../components/TextInput/TextInput';
 import {Icon} from '../../../components/Icon/Icon';
 import {Button} from '../../../components/Button/Button';
 import {Screen} from '../../../components/Screen/Screen';
+import {RootStackParamList} from '../../../routes/Routes';
 
-export function LoginScreen({navigation}: any) {
+type ScreenProps = NativeStackScreenProps<RootStackParamList, 'LoginScreen'>;
+
+export function LoginScreen({navigation}: ScreenProps) {
   const navigateToSignUpScreen = () => {
     navigation.navigate('SignUpScreen');
   };
