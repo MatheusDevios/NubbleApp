@@ -3,8 +3,12 @@ import {Screen} from '../../../components/Screen/Screen';
 import {Icon} from '../../../components/Icon/Icon';
 import {Text} from '../../../components/Text/Text';
 import {Button} from '../../../components/Button/Button';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {RootStackParamList} from '../../../routes/Routes';
 
-export const SuccessScreen = () => {
+type ScreenProps = NativeStackScreenProps<RootStackParamList, 'SuccessScreen'>;
+
+export const SuccessScreen = ({route}: ScreenProps) => {
   const goBackToHome = () => {
     //TODO navigate to Login screen
     //TODO navigate to Home screen
@@ -12,14 +16,12 @@ export const SuccessScreen = () => {
 
   return (
     <Screen>
-      <Icon name="camera" />
+      <Icon {...route.params.icon} />
       <Text preset="headingLarge" mt="s24">
-        {' '}
-        Title{' '}
+        {route.params.title}
       </Text>
       <Text preset="paragraphLarge" mt="s16">
-        {' '}
-        Description{' '}
+        {route.params.description}
       </Text>
       <Button title="Home Screen" onPress={goBackToHome} mt="s40" />
     </Screen>
