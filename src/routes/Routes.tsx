@@ -5,6 +5,7 @@ import {LoginScreen} from '../screens/auth/Login/LoginScreen';
 import {SignUpScreen} from '../screens/auth/SignUpScreen/SignUpScreen';
 import {SuccessScreen} from '../screens/auth/SuccessScreen/SuccessScreen';
 import {IconProps} from '../components/Icon/Icon';
+import {ForgotPasswordScreen} from '../screens/auth/ForgotPasswordScreen/ForgotPasswordScreen';
 
 export type RootStackParamList = {
   LoginScreen: undefined;
@@ -14,7 +15,7 @@ export type RootStackParamList = {
     description: string;
     icon: Pick<IconProps, 'name' | 'color'>;
   };
-  // SuccessScreen: icon, title, description;
+  ForgotPasswordScreen: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -28,6 +29,10 @@ export function Router() {
         <Stack.Screen name="LoginScreen" component={LoginScreen} />
         <Stack.Screen name="SignUpScreen" component={SignUpScreen} />
         <Stack.Screen name="SuccessScreen" component={SuccessScreen} />
+        <Stack.Screen
+          name="ForgotPasswordScreen"
+          component={ForgotPasswordScreen}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
