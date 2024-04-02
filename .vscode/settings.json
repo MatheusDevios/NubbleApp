@@ -1,4 +1,7 @@
 {
   "java.compile.nullAnalysis.mode": "automatic",
-  "cSpell.words": ["Pressable"]
+  "cSpell.words": [
+    "hookform",
+    "Pressable"
+  ]
 }
