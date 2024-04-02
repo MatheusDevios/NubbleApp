@@ -1,13 +1,14 @@
 import React from 'react';
 import {Screen} from '../../../components/Screen/Screen';
 import {Text} from '../../../components/Text/Text';
-import {TextInput} from '../../../components/TextInput/TextInput';
 import {Button} from '../../../components/Button/Button';
-import {PasswordInput} from '../../../components/PasswordInput/PasswordInput';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../../routes/Routes';
 import {useResetNavigationSuccess} from '../../../hooks/useResetNavigationSuccess';
-import {useForm, Controller} from 'react-hook-form';
+import {useForm} from 'react-hook-form';
+import {FormTextInput} from '../../../components/Form/FormTextInput';
+import {FormPasswordTextInput} from '../../../components/Form/FormPasswordTextInput';
+import {isValidEmailRegex} from '../Login/LoginScreen';
 
 type ScreenProps = NativeStackScreenProps<RootStackParamList, 'SignUpScreen'>;
 
@@ -43,68 +44,54 @@ export function SignUpScreen({navigation}: ScreenProps) {
       <Text preset="headingLarge" mb="s32">
         Sign Up
       </Text>
-      <Controller
+
+      <FormTextInput
         control={control}
         name="username"
         rules={{required: 'Username is required'}}
-        render={({field: {onChange, value}, fieldState}) => (
-          <TextInput
-            errorMessage={fieldState.error?.message}
-            label="Username"
-            placeholder="@"
-            onChangeText={onChange}
-            value={value}
-            boxProps={{mb: 's20'}}
-          />
-        )}
+        label="Username"
+        placeholder="@"
+        boxProps={{mb: 's20'}}
       />
 
-      <Controller
+      <FormTextInput
         control={control}
         name="fullName"
         rules={{required: 'Full Name is required'}}
-        render={({field: {onChange, value}, fieldState}) => (
-          <TextInput
-            errorMessage={fieldState.error?.message}
-            label="Full Name"
-            placeholder="Full Name"
-            onChangeText={onChange}
-            value={value}
-            boxProps={{mb: 's20'}}
-          />
-        )}
+        autoCapitalize="words"
+        label="Full Name"
+        placeholder="Full Name"
+        boxProps={{mb: 's20'}}
       />
 
-      <Controller
+      <FormTextInput
         control={control}
         name="email"
-        rules={{required: 'Email is required'}}
-        render={({field: {onChange, value}, fieldState}) => (
-          <TextInput
-            errorMessage={fieldState.error?.message}
-            label="Email"
-            placeholder="Email"
-            onChangeText={onChange}
-            value={value}
-            boxProps={{mb: 's20'}}
-          />
-        )}
+        rules={{
+          required: 'Email is required',
+          pattern: {
+            value: isValidEmailRegex,
+            message: 'Invalid email',
+          },
+        }}
+        label="Email"
+        placeholder="Email"
+        boxProps={{mb: 's20'}}
       />
 
-      <Controller
+      <FormPasswordTextInput
         control={control}
         name="password"
-        rules={{required: 'Password is required'}}
-        render={({field: {onChange, value}, fieldState}) => (
-          <PasswordInput
-            errorMessage={fieldState.error?.message}
-            label="Password"
-            placeholder="Password"
-            onChangeText={onChange}
-            value={value}
-            boxProps={{mb: 's48'}}
-          />
-        )}
+        rules={{
+          required: 'Password is required',
+          minLength: {
+            value: 8,
+            message: 'Password must be at least 8 characters',
+          },
+        }}
+        label="Password"
+        placeholder="Password"
+        boxProps={{mb: 's48'}}
       />
 
       <Button

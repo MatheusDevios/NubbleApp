@@ -14,7 +14,7 @@ type LoginFormType = {
   password: string;
 };
 
-const isValidEmailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+export const isValidEmailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
 
 type ScreenProps = NativeStackScreenProps<RootStackParamList, 'LoginScreen'>;
 
