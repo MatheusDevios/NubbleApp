@@ -26,6 +26,7 @@ export const ForgotPasswordScreen = ({navigation}: ScreenProps) => {
     },
     mode: 'onChange',
   });
+
   const {reset} = useResetNavigationSuccess();
   const submitForm = () => {
     reset({
