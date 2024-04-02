@@ -8,20 +8,15 @@ import {useResetNavigationSuccess} from '../../../hooks/useResetNavigationSucces
 import {useForm} from 'react-hook-form';
 import {FormTextInput} from '../../../components/Form/FormTextInput';
 import {FormPasswordTextInput} from '../../../components/Form/FormPasswordTextInput';
-import {isValidEmailRegex} from '../Login/LoginScreen';
+import {zodResolver} from '@hookform/resolvers/zod';
+import {SignUpSchema, signUpSchema} from './signUpSchema';
 
 type ScreenProps = NativeStackScreenProps<RootStackParamList, 'SignUpScreen'>;
 
-type SignUpFormType = {
-  username: string;
-  fullName: string;
-  email: string;
-  password: string;
-};
-
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function SignUpScreen({navigation}: ScreenProps) {
-  const {control, formState, handleSubmit} = useForm<SignUpFormType>({
+  const {control, formState, handleSubmit} = useForm<SignUpSchema>({
+    resolver: zodResolver(signUpSchema),
     defaultValues: {
       username: '',
       fullName: '',
@@ -31,13 +26,13 @@ export function SignUpScreen({navigation}: ScreenProps) {
     mode: 'onChange',
   });
   const {reset} = useResetNavigationSuccess();
-  function submitForm(formValues: SignUpFormType) {
+  function submitForm(formValues: SignUpSchema) {
     console.log('formValues:', formValues);
-    // reset({
-    //   title: 'Sign Up Successful.',
-    //   description: 'You have successfully signed up.',
-    //   icon: {name: 'checkRound', color: 'success'},
-    // });
+    reset({
+      title: 'Sign Up Successful.',
+      description: 'You have successfully signed up.',
+      icon: {name: 'checkRound', color: 'success'},
+    });
   }
   return (
     <Screen canGoBack scrollable>
@@ -48,7 +43,6 @@ export function SignUpScreen({navigation}: ScreenProps) {
       <FormTextInput
         control={control}
         name="username"
-        rules={{required: 'Username is required'}}
         label="Username"
         placeholder="@"
         boxProps={{mb: 's20'}}
@@ -57,7 +51,6 @@ export function SignUpScreen({navigation}: ScreenProps) {
       <FormTextInput
         control={control}
         name="fullName"
-        rules={{required: 'Full Name is required'}}
         autoCapitalize="words"
         label="Full Name"
         placeholder="Full Name"
@@ -67,13 +60,6 @@ export function SignUpScreen({navigation}: ScreenProps) {
       <FormTextInput
         control={control}
         name="email"
-        rules={{
-          required: 'Email is required',
-          pattern: {
-            value: isValidEmailRegex,
-            message: 'Invalid email',
-          },
-        }}
         label="Email"
         placeholder="Email"
         boxProps={{mb: 's20'}}
@@ -82,13 +68,6 @@ export function SignUpScreen({navigation}: ScreenProps) {
       <FormPasswordTextInput
         control={control}
         name="password"
-        rules={{
-          required: 'Password is required',
-          minLength: {
-            value: 8,
-            message: 'Password must be at least 8 characters',
-          },
-        }}
         label="Password"
         placeholder="Password"
         boxProps={{mb: 's48'}}

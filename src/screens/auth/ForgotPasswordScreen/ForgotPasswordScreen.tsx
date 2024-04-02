@@ -3,10 +3,15 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {Button} from '../../../components/Button/Button';
 import {Screen} from '../../../components/Screen/Screen';
 import {Text} from '../../../components/Text/Text';
-import {TextInput} from '../../../components/TextInput/TextInput';
 import {RootStackParamList} from '../../../routes/Routes';
 import {useResetNavigationSuccess} from '../../../hooks/useResetNavigationSuccess';
-
+import {FormTextInput} from '../../../components/Form/FormTextInput';
+import {useForm} from 'react-hook-form';
+import {zodResolver} from '@hookform/resolvers/zod';
+import {
+  ForgotPasswordSchema,
+  forgotPasswordSchema,
+} from './forgotPasswordSchema';
 type ScreenProps = NativeStackScreenProps<
   RootStackParamList,
   'ForgotPasswordScreen'
@@ -14,6 +19,13 @@ type ScreenProps = NativeStackScreenProps<
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const ForgotPasswordScreen = ({navigation}: ScreenProps) => {
+  const {control, formState, handleSubmit} = useForm<ForgotPasswordSchema>({
+    resolver: zodResolver(forgotPasswordSchema),
+    defaultValues: {
+      email: '',
+    },
+    mode: 'onChange',
+  });
   const {reset} = useResetNavigationSuccess();
   const submitForm = () => {
     reset({
@@ -32,8 +44,19 @@ export const ForgotPasswordScreen = ({navigation}: ScreenProps) => {
         Type your email and we'll send you the instructions to modify your
         password.
       </Text>
-      <TextInput boxProps={{mb: 's40'}} placeholder="Email" label="Email" />
-      <Button onPress={submitForm} title="Forgot Password" mb="s12" />
+      <FormTextInput
+        control={control}
+        name="email"
+        label="Email"
+        placeholder="Email"
+        boxProps={{mb: 's20'}}
+      />
+      <Button
+        disabled={!formState.isValid}
+        onPress={handleSubmit(submitForm)}
+        title="Forgot Password"
+        mb="s12"
+      />
     </Screen>
   );
 };

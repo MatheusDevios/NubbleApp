@@ -1,25 +1,21 @@
 import React from 'react';
-import {useForm, Controller} from 'react-hook-form';
+import {useForm} from 'react-hook-form';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {Text} from '../../../components/Text/Text';
-import {TextInput} from '../../../components/TextInput/TextInput';
 import {Button} from '../../../components/Button/Button';
 import {Screen} from '../../../components/Screen/Screen';
 import {RootStackParamList} from '../../../routes/Routes';
 import {Alert} from 'react-native';
-import {PasswordInput} from '../../../components/PasswordInput/PasswordInput';
-
-type LoginFormType = {
-  email: string;
-  password: string;
-};
-
-export const isValidEmailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+import {LoginSchema, loginSchema} from './loginSchema';
+import {zodResolver} from '@hookform/resolvers/zod';
+import {FormTextInput} from '../../../components/Form/FormTextInput';
+import {FormPasswordTextInput} from '../../../components/Form/FormPasswordTextInput';
 
 type ScreenProps = NativeStackScreenProps<RootStackParamList, 'LoginScreen'>;
 
 export function LoginScreen({navigation}: ScreenProps) {
-  const {control, formState, handleSubmit} = useForm<LoginFormType>({
+  const {control, formState, handleSubmit} = useForm<LoginSchema>({
+    resolver: zodResolver(loginSchema),
     defaultValues: {
       email: '',
       password: '',
@@ -27,7 +23,7 @@ export function LoginScreen({navigation}: ScreenProps) {
     mode: 'onChange',
   });
 
-  const submitForm = ({email, password}: LoginFormType) => {
+  const submitForm = ({email, password}: LoginSchema) => {
     Alert.alert(`Login: ${email} ${'\n'} Password: ${password}`);
   };
 
@@ -48,56 +44,31 @@ export function LoginScreen({navigation}: ScreenProps) {
         Please type your email and password to login.
       </Text>
 
-      <Controller
+      <FormTextInput
         control={control}
         name="email"
-        rules={{
-          required: 'Email is required',
-          pattern: {
-            value: isValidEmailRegex,
-            message: 'Invalid email',
-          },
-        }}
-        render={({field, fieldState}) => (
-          <TextInput
-            errorMessage={fieldState.error?.message}
-            boxProps={{mb: 's20'}}
-            placeholder="Email"
-            label="Email"
-            value={field.value}
-            onChangeText={field.onChange}
-          />
-        )}
+        label="Email"
+        placeholder="Email"
+        boxProps={{mb: 's20'}}
       />
-      <Controller
+
+      <FormPasswordTextInput
         control={control}
         name="password"
-        rules={{
-          required: 'Password is required',
-          minLength: {
-            value: 8,
-            message: 'Password must be at least 8 characters',
-          },
-        }}
-        render={({field, fieldState}) => (
-          <PasswordInput
-            errorMessage={fieldState.error?.message}
-            value={field.value}
-            onChangeText={field.onChange}
-            label="Password"
-            placeholder="Password"
-            boxProps={{mb: 's10'}}
-          />
-        )}
+        label="Password"
+        placeholder="Password"
+        boxProps={{mb: 's20'}}
       />
+
       <Text
         onPress={navigateToForgotPasswordScreen}
         color="primary"
         preset="paragraphSmall"
-        bold
-        mb="s48">
+        mb="s48"
+        bold>
         Forgot password
       </Text>
+
       <Button
         disabled={!formState.isValid}
         title="Login"
