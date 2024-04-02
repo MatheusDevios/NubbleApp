@@ -3,7 +3,6 @@ import {useForm, Controller} from 'react-hook-form';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {Text} from '../../../components/Text/Text';
 import {TextInput} from '../../../components/TextInput/TextInput';
-import {Icon} from '../../../components/Icon/Icon';
 import {Button} from '../../../components/Button/Button';
 import {Screen} from '../../../components/Screen/Screen';
 import {RootStackParamList} from '../../../routes/Routes';
@@ -14,6 +13,8 @@ type LoginFormType = {
   email: string;
   password: string;
 };
+
+const isValidEmailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
 
 type ScreenProps = NativeStackScreenProps<RootStackParamList, 'LoginScreen'>;
 
@@ -53,7 +54,7 @@ export function LoginScreen({navigation}: ScreenProps) {
         rules={{
           required: 'Email is required',
           pattern: {
-            value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
+            value: isValidEmailRegex,
             message: 'Invalid email',
           },
         }}
