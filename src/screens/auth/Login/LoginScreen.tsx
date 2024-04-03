@@ -8,7 +8,7 @@ import {
   FormTextInput,
   FormPasswordTextInput,
 } from '@components';
-import {RootStackParamList} from '../../../routes/Routes';
+import {RootStackParamList} from '@routes';
 import {Alert} from 'react-native';
 import {LoginSchema, loginSchema} from './loginSchema';
 import {zodResolver} from '@hookform/resolvers/zod';
