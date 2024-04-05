@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 /* eslint-disable react/react-in-jsx-scope */
 import {ScrollView, View} from 'react-native';
 
