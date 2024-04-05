@@ -3,5 +3,8 @@
   "cSpell.words": [
     "hookform",
     "Pressable"
-  ]
+  ],
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  }
 }
