@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-shadow */
 import React, {useRef} from 'react';
 import {
   Pressable,

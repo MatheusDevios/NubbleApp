@@ -11,13 +11,14 @@ import {BellOnIcon} from '../../assets/icons/BellOnIcon';
 import {BookmarkFillIcon} from '../../assets/icons/BookmarkFillIcon';
 import {BookmarkIcon} from '../../assets/icons/BookmarkIcon';
 import {CameraIcon} from '../../assets/icons/CameraIcon';
-import {EyeOffIcon} from '../../assets/icons/EyeOffIcon';
-import {EyeOnIcon} from '../../assets/icons/EyeOnIcon';
 import {ChatIcon} from '../../assets/icons/ChatIcon';
 import {ChatOnIcon} from '../../assets/icons/ChatOnIcon';
 import {CheckIcon} from '../../assets/icons/CheckIcon';
-import {CommentIcon} from '../../assets/icons/CommentIcon';
+import {CheckRoundIcon} from '../../assets/icons/CheckRoundIcon';
 import {ChevronRightIcon} from '../../assets/icons/ChevronRightIcon';
+import {CommentIcon} from '../../assets/icons/CommentIcon';
+import {EyeOffIcon} from '../../assets/icons/EyeOffIcon';
+import {EyeOnIcon} from '../../assets/icons/EyeOnIcon';
 import {FlashOffIcon} from '../../assets/icons/FlashOffIcon';
 import {FlashOnIcon} from '../../assets/icons/FlashOnIcon';
 import {HeartFillIcon} from '../../assets/icons/HeartFillIcon';
@@ -32,7 +33,6 @@ import {ProfileIcon} from '../../assets/icons/ProfileIcon';
 import {SearchIcon} from '../../assets/icons/SearchIcon';
 import {SettingsIcon} from '../../assets/icons/SettingsIcon';
 import {TrashIcon} from '../../assets/icons/TrashIcon';
-import {CheckRoundIcon} from '../../assets/icons/CheckRoundIcon';
 
 export interface IconBase {
   size?: number;
