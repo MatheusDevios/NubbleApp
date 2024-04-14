@@ -1,20 +1,29 @@
-import React from 'react';
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import React, {useEffect, useState} from 'react';
+import {FlatList, ListRenderItemInfo} from 'react-native';
 
-import {Button, Screen, Text} from '@components';
+import {Post, postService} from '@domain';
+
+import {Screen, PostItem} from '@components';
 import {AppTabScreenProps} from '@routes';
 
 export const HomeScreen = ({navigation}: AppTabScreenProps<'HomeScreen'>) => {
+  const [postList, setPostList] = useState<Post[]>([]);
+
+  useEffect(() => {
+    postService.getList().then(list => setPostList(list));
+  }, []);
+
+  const renderItem = ({item}: ListRenderItemInfo<Post>) => {
+    return <PostItem post={item} />;
+  };
+
   return (
     <Screen>
-      <Text>Home Screen</Text>
-      <Button
-        title="Settings"
-        onPress={() => navigation.navigate('SettingScreen')}
-      />
-      <Button
-        title="Favorite"
-        mt="s10"
-        onPress={() => navigation.navigate('FavoriteScreen')}
+      <FlatList
+        data={postList}
+        keyExtractor={item => item.id}
+        renderItem={renderItem}
       />
     </Screen>
   );
