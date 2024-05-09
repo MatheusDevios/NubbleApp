@@ -5,6 +5,7 @@ import {Post} from '@domain';
 import {Box} from '@components';
 
 import {PostActions} from './components/PostActions';
+import {PostBottom} from './components/PostBottom';
 import {PostHeader} from './components/PostHeader';
 import {PostImage} from './components/PostImage';
 
@@ -21,6 +22,11 @@ export const PostItem = ({post}: PostItemProps) => {
         commentCount={post.commentCount}
         reactionCount={post.commentCount}
         favoriteCount={post.favoriteCount}
+      />
+      <PostBottom
+        text={post.text}
+        author={post.author}
+        commentCount={post.commentCount}
       />
     </Box>
   );
