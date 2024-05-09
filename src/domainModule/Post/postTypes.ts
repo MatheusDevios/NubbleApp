@@ -11,3 +11,5 @@ export interface Post {
   commentCount: number;
   favoriteCount: number;
 }
+
+// export interface PostList {}
