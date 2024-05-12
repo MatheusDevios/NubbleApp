@@ -5,7 +5,7 @@
   "scripts": {
     "android": "react-native run-android",
     "ios": "react-native run-ios",
-    "ios15": "react-native run-ios --simulator \"iPhone 15 Pro Max\"",
+    "ios14": "react-native run-ios --simulator \"iPhone 14 Pro Max\"",
     "lint": "eslint .",
     "start": "react-native start",
     "test": "jest",
@@ -17,6 +17,7 @@
     "@react-navigation/native": "^6.1.10",
     "@react-navigation/native-stack": "^6.9.18",
     "@shopify/restyle": "^2.4.2",
+    "axios": "^1.6.8",
     "react": "18.2.0",
     "react-hook-form": "^7.43.9",
     "react-native": "0.72.7",
