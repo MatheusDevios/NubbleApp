@@ -6,16 +6,21 @@ export function usePostList() {
   const [postList, setPostList] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<boolean | null>(null);
-
   const [page, setPage] = useState(1);
+  const [hasNextPage, setHasNextPage] = useState(true);
 
-  const fetchPostList = async () => {
+  const fetchInitialData = async () => {
     try {
       setError(null);
       setLoading(true);
-      const list = await postService.getList(page);
-      setPostList(prev => [...prev, ...list]);
-      setPage(prev => prev + 1);
+      const {data, meta} = await postService.getList(1);
+      setPostList(data);
+      if (meta.hasNextPage) {
+        setPage(2);
+        setHasNextPage(true);
+      } else {
+        setHasNextPage(false);
+      }
     } catch (er) {
       setError(true);
     } finally {
@@ -24,15 +29,32 @@ export function usePostList() {
   };
 
   const fetchNextPage = async () => {
-    if (!loading) {
-      fetchPostList();
+    if (loading || !hasNextPage) {
+      return;
+    }
+    try {
+      setLoading(true);
+      const {data, meta} = await postService.getList(page);
+      //setPostList gets its previous state and adds the new data to it...
+      //...and create a new array with the whole data till now
+      setPostList(prev => [...prev, ...data]);
+      if (meta.hasNextPage) {
+        //if there is a next page, increment the page number
+        setPage(prev => prev + 1);
+      } else {
+        //if there is no next page, set hasNextPage to false to avoid further requests
+        setHasNextPage(false);
+      }
+    } catch (er) {
+      setError(true);
+    } finally {
+      setLoading(false);
     }
   };
 
   useEffect(() => {
-    fetchPostList();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    fetchInitialData();
   }, []);
 
-  return {loading, error, postList, refetch: fetchPostList, fetchNextPage};
+  return {loading, error, postList, refresh: fetchInitialData, fetchNextPage};
 }
