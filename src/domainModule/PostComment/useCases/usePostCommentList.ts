@@ -1,6 +1,4 @@
-import {usePaginatedList} from '@domain';
-
-import {postCommentService} from '../postCommentService';
+import {postCommentService, usePaginatedList} from '@domain';
 
 export function usePostCommentList(postID: number) {
   const getList = (page: number) => postCommentService.getList(postID, page);
