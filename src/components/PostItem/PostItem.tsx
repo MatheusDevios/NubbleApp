@@ -19,8 +19,8 @@ export const PostItem = ({post}: PostItemProps) => {
       <PostHeader author={post.author} />
       <PostImage imageURL={post.imageURL} />
       <PostActions
+        reactionCount={post.reactionCount}
         commentCount={post.commentCount}
-        reactionCount={post.commentCount}
         favoriteCount={post.favoriteCount}
       />
       <PostBottom

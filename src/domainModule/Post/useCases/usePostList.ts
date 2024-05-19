@@ -39,8 +39,9 @@ export function usePostList() {
       //...and create a new array with the whole data till now
       setPostList(prev => [...prev, ...data]);
       if (meta.hasNextPage) {
-        //if there is a next page, increment the page number
+        //if there is a next page, increment the page number and set hasNextPage to true
         setPage(prev => prev + 1);
+        setHasNextPage(true);
       } else {
         //if there is no next page, set hasNextPage to false to avoid further requests
         setHasNextPage(false);
