@@ -7,3 +7,4 @@ export * from './hooks/usePaginatedList';
 export * from './PostComment/useCases/usePostCommentList';
 export * from './PostComment/postCommentService';
 export * from './PostComment/postCommentTypes';
+export * from './PostComment/useCases/usePostCommentCreatePost';
