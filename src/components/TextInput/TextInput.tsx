@@ -71,7 +71,7 @@ export function TextInput({
   );
 }
 
-const $TextInputStyle: TextStyle = {
+export const $TextInputStyle: TextStyle = {
   padding: 0,
   fontFamily: $fontFamily.regular,
   flexGrow: 1,
