@@ -1,21 +1,41 @@
 import React from 'react';
+import {FlatList, ListRenderItemInfo} from 'react-native';
 
-import {usePostCommentList} from '@domain';
+import {PostComment, usePostCommentList} from '@domain';
 
-import {Box, Screen, Text} from '@components';
+import {Screen} from '@components';
+import {useAppSafeArea} from '@hooks';
 import {AppScreenProps} from '@routes';
+
+import {PostCommentBottom, PostCommentItem} from './components';
 
 export const PostCommentScreen = ({
   route,
 }: AppScreenProps<'PostCommentScreen'>) => {
   const postId = route.params.postId;
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const {list} = usePostCommentList(postId);
+
+  const {list, fetchNextPage, hasNextPage} = usePostCommentList(postId);
+
+  const {bottom} = useAppSafeArea();
+
+  function renderItem({item}: ListRenderItemInfo<PostComment>) {
+    return <PostCommentItem postComment={item} />;
+  }
+
   return (
     <Screen title="Comments" canGoBack>
-      <Box>
-        <Text>PostCommentScreen {route.params.postId}</Text>
-      </Box>
+      <FlatList
+        showsVerticalScrollIndicator={false}
+        data={list}
+        renderItem={renderItem}
+        contentContainerStyle={{paddingBottom: bottom}}
+        ListFooterComponent={
+          <PostCommentBottom
+            fetchNextPage={fetchNextPage}
+            hasNextPage={hasNextPage}
+          />
+        }
+      />
     </Screen>
   );
 };
