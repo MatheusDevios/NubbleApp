@@ -11,7 +11,8 @@
       "@domain": ["src/domainModule"],
       "@brand": ["src/brand"],
       "@api": ["src/api"],
-      "@types": ["src/types"]
+      "@types": ["src/types"],
+      "@utils": ["src/utils"]
     }
   }
 }
