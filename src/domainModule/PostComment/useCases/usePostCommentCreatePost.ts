@@ -1,8 +1,14 @@
 import {useState} from 'react';
 
 import {postCommentService} from '../postCommentService';
+import {PostComment} from '../postCommentTypes';
 
-export function usePostCommentCreatePost(postId: number) {
+interface Options {
+  onSuccess?: (data: PostComment) => void;
+  onError?: () => void;
+}
+
+export function usePostCommentCreatePost(postId: number, options?: Options) {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<boolean | null>(null);
 
@@ -10,7 +16,10 @@ export function usePostCommentCreatePost(postId: number) {
     try {
       setLoading(true);
       setError(null);
-      await postCommentService.createPost(postId, message);
+      const postComment = await postCommentService.createPost(postId, message);
+      if (options?.onSuccess) {
+        options.onSuccess(postComment);
+      }
     } catch (err) {
       setError(true);
     } finally {
