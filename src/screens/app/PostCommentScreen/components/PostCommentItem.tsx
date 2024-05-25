@@ -1,16 +1,34 @@
 import React from 'react';
 import {Alert, Pressable} from 'react-native';
 
-import {PostComment, usePostCommentRemove} from '@domain';
+import {PostComment, postCommentService, usePostCommentRemove} from '@domain';
 
 import {Box, ProfileAvatar, Text} from '@components';
 
 interface PostCommentItemProps {
   postComment: PostComment;
+  userId: number;
+  postAuthorId: number;
+  onRemoveComment: () => void;
 }
 
-export function PostCommentItem({postComment}: PostCommentItemProps) {
-  const {deletePostComment} = usePostCommentRemove();
+export function PostCommentItem({
+  postComment,
+  userId,
+  postAuthorId,
+  onRemoveComment,
+}: PostCommentItemProps) {
+  const {deletePostComment} = usePostCommentRemove({
+    onSuccess: () => {
+      onRemoveComment();
+    },
+  });
+
+  const isAllowedToDelete = postCommentService.isAllowedToDelete(
+    postComment,
+    userId,
+    postAuthorId,
+  );
 
   function confirmRemoval() {
     Alert.alert(
@@ -32,7 +50,7 @@ export function PostCommentItem({postComment}: PostCommentItemProps) {
   }
 
   return (
-    <Pressable onLongPress={confirmRemoval}>
+    <Pressable disabled={!isAllowedToDelete} onLongPress={confirmRemoval}>
       <Box flexDirection="row" mb="s16" alignItems="center">
         <ProfileAvatar imageURL={postComment.author.profileURL} />
         <Box ml="s12" flex={1}>

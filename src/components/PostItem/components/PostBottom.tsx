@@ -16,7 +16,10 @@ export const PostBottom = ({
   const navigation = useNavigation();
 
   const navigateToPostCommentScreen = () => {
-    navigation.navigate('PostCommentScreen', {postId: id});
+    navigation.navigate('PostCommentScreen', {
+      postId: id,
+      postAuthorId: author.id,
+    });
   };
 
   return (

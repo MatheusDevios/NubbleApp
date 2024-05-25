@@ -36,8 +36,29 @@ async function deletePost(postCommentId: number): Promise<string> {
   return response.message;
 }
 
+/**
+ * @description This function is used to check if the user is allowed to delete a postComment.
+ *
+ * @param postComment The postComment object to be deleted.
+ * @param userId The user id.
+ * @param postComment.author.id The author id of the postComment.
+ *
+ * @returns {boolean} Returns true if the user is allowed to delete a postComment, otherwise false.
+ */
+function isAllowedToDelete(
+  postComment: PostComment,
+  userId: number,
+  postAuthorId: number,
+): boolean {
+  if (userId === postComment.author.id || userId === postAuthorId) {
+    return true;
+  }
+  return false;
+}
+
 export const postCommentService = {
   getList,
   createPost,
   deletePost,
+  isAllowedToDelete,
 };
