@@ -9,3 +9,4 @@ export * from './PostComment/postCommentTypes';
 export * from './PostComment/useCases/usePostCommentCreatePost';
 export * from './PostComment/useCases/usePostCommentRemove';
 export * from './Auth';
+export * from './User';

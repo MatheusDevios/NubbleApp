@@ -18,6 +18,7 @@
     "@react-navigation/native": "^6.1.10",
     "@react-navigation/native-stack": "^6.9.18",
     "@shopify/restyle": "^2.4.2",
+    "@tanstack/react-query": "^4.32.6",
     "axios": "^1.6.8",
     "date-fns": "^3.6.0",
     "react": "18.2.0",
