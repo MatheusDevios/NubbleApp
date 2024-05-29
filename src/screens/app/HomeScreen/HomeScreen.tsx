@@ -20,9 +20,9 @@ import {HomeHeader} from './components/HomeHeader';
 
 export const HomeScreen = ({}: AppTabScreenProps<'HomeScreen'>) => {
   const {
-    loading,
-    error,
     list: postList,
+    isLoading,
+    isError,
     refresh,
     fetchNextPage,
   } = usePostList();
@@ -44,14 +44,14 @@ export const HomeScreen = ({}: AppTabScreenProps<'HomeScreen'>) => {
         renderItem={renderItem}
         onEndReached={fetchNextPage}
         onEndReachedThreshold={0.2}
-        refreshing={loading}
+        refreshing={isLoading}
         refreshControl={
-          <RefreshControl refreshing={loading} onRefresh={refresh} />
+          <RefreshControl refreshing={isLoading} onRefresh={refresh} />
         }
         contentContainerStyle={{flex: postList.length === 0 ? 1 : undefined}}
         ListHeaderComponent={<HomeHeader />}
         ListEmptyComponent={
-          <HomeEmpty refetch={refresh} error={error} loading={loading} />
+          <HomeEmpty refetch={refresh} error={isError} loading={isLoading} />
         }
       />
     </Screen>

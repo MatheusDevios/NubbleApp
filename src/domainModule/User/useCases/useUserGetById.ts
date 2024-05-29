@@ -4,7 +4,7 @@ import {useQuery} from '@tanstack/react-query';
 import {userService} from '../userServices';
 
 export function useUserGetById(id: number) {
-  const {data, isLoading, isError} = useQuery({
+  const {data, isLoading, isError, refetch, isFetching} = useQuery({
     queryKey: [QueryKeys.UserGetById, id],
     queryFn: async () => {
       return await userService.getById(id);
@@ -17,5 +17,7 @@ export function useUserGetById(id: number) {
     user: data,
     isLoading,
     isError,
+    refetch,
+    isFetching,
   };
 }
