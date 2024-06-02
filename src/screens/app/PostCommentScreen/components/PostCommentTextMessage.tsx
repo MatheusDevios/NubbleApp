@@ -1,21 +1,19 @@
 import React, {useState} from 'react';
 import {Keyboard} from 'react-native';
 
-import {usePostCommentCreatePost} from '@domain';
+import {usePostCommentCreate} from '@domain';
 
 import {TextMessage} from '@components';
 
 interface Props {
   postId: number;
-  onAddComment: () => void;
 }
 
-export function PostCommentTextMessage({postId, onAddComment}: Props) {
+export function PostCommentTextMessage({postId}: Props) {
   const [message, setMessage] = useState('');
-  const {createPost} = usePostCommentCreatePost(postId, {
+  const {createPost} = usePostCommentCreate(postId, {
     onSuccess: () => {
       setMessage('');
-      onAddComment();
       Keyboard.dismiss();
     },
   });
