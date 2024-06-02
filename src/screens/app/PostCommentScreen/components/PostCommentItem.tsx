@@ -7,22 +7,21 @@ import {useToastService} from '@services';
 import {Box, ProfileAvatar, Text} from '@components';
 
 interface PostCommentItemProps {
+  postId: number;
   postComment: PostComment;
   userId: number;
   postAuthorId: number;
-  onRemoveComment: () => void;
 }
 
 export function PostCommentItem({
+  postId,
   postComment,
   userId,
   postAuthorId,
-  onRemoveComment,
 }: PostCommentItemProps) {
   const {showToast} = useToastService();
-  const {deletePostComment} = usePostCommentRemove({
+  const {deletePostComment} = usePostCommentRemove(postId, {
     onSuccess: () => {
-      onRemoveComment();
       showToast({
         message: 'Comment removed',
         type: 'success',
