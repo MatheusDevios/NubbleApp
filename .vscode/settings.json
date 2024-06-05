@@ -1,6 +1,6 @@
 {
   "java.compile.nullAnalysis.mode": "automatic",
-  "cSpell.words": ["hookform", "Pressable", "tanstack", "Zustand"],
+  "cSpell.words": ["hookform", "MMKV", "Pressable", "tanstack", "Zustand"],
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit"
   }

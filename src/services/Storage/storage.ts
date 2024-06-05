@@ -1,9 +1,11 @@
-import {asyncStorage} from './implementarion/asyncStorage';
-
 export interface Storage {
-  getItem: <T>(key: string) => Promise<T | null>;
-  setItem: <T>(key: string, value: T) => Promise<void>;
-  removeItem: (key: string) => Promise<void>;
+  getItem: <T>(key: string) => T | null | Promise<T | null>;
+  setItem: <T>(key: string, value: T) => void | Promise<void>;
+  removeItem: (key: string) => void | Promise<void>;
 }
 
-export let storage: Storage = asyncStorage;
+export let storage: Storage;
+
+export function initializeStorage(storageImplementation: Storage) {
+  storage = storageImplementation;
+}
