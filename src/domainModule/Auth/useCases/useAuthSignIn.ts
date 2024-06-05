@@ -21,7 +21,9 @@ export function useAuthSignIn(options?: MutationOptions<AuthCredentials>) {
       }
     },
     onSuccess: authCredentials => {
-      authService.updateToken(authCredentials.token);
+      // being made at the AuthCredentialsProvider as every time the credentials are saved, the token is updated
+      // and also when the app is reloaded the token has to be updated from the storage.
+      // authService.updateToken(authCredentials.token);
       saveCredentials(authCredentials);
     },
   });

@@ -9,7 +9,9 @@ export function useAuthSignOut() {
     mutationFn: authService.signOut,
     retry: false,
     onSuccess: () => {
-      authService.removeToken();
+      // being made at the AuthCredentialsProvider as every time the credentials are removed, the token is updated
+      // and also when the app is reloaded the token has to be updated from the storage.
+      // authService.removeToken();
       removeCredentials();
     },
   });

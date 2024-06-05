@@ -8,8 +8,8 @@ import {AppTabScreenProps} from '@routes';
 export const MyProfileScreen = ({
   navigation,
 }: AppTabScreenProps<'MyProfileScreen'>) => {
-  const {authCredential} = useAuthCredentials();
-  const name = authCredential?.user.fullName;
+  const {authCredentials} = useAuthCredentials();
+  const name = authCredentials?.user.fullName;
   return (
     <Screen canGoBack>
       <Box
