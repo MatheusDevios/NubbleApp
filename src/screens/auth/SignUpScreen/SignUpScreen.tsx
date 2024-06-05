@@ -1,5 +1,6 @@
 import React from 'react';
 
+import {useAuthSignUp} from '@domain';
 import {zodResolver} from '@hookform/resolvers/zod';
 import {useForm} from 'react-hook-form';
 
@@ -11,30 +12,39 @@ import {
   FormPasswordTextInput,
 } from '@components';
 import {useResetNavigationSuccess} from '@hooks';
-import {AuthScreenProps} from '@routes';
+import {AuthScreenProps, AuthStackParamList} from '@routes';
 
 import {SignUpSchema, signUpSchema} from './signUpSchema';
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export function SignUpScreen({navigation}: AuthScreenProps<'SignUpScreen'>) {
+const resetParam: AuthStackParamList['SuccessScreen'] = {
+  title: 'Sign Up Successful.',
+  description: 'You have successfully signed up.',
+  icon: {name: 'checkRound', color: 'success'},
+};
+
+const defaultValues: SignUpSchema = {
+  username: '',
+  firstName: '',
+  lastName: '',
+  email: '',
+  password: '',
+};
+
+export function SignUpScreen({}: AuthScreenProps<'SignUpScreen'>) {
   const {control, formState, handleSubmit} = useForm<SignUpSchema>({
     resolver: zodResolver(signUpSchema),
-    defaultValues: {
-      username: '',
-      fullName: '',
-      email: '',
-      password: '',
-    },
+    defaultValues,
     mode: 'onChange',
   });
   const {reset} = useResetNavigationSuccess();
+  const {signUp, isLoading} = useAuthSignUp({
+    onSuccess: () => {
+      reset(resetParam);
+    },
+  });
   function submitForm(formValues: SignUpSchema) {
-    console.log('formValues:', formValues);
-    reset({
-      title: 'Sign Up Successful.',
-      description: 'You have successfully signed up.',
-      icon: {name: 'checkRound', color: 'success'},
-    });
+    // console.log('formValues:', formValues);
+    signUp(formValues);
   }
   return (
     <Screen canGoBack scrollable>
@@ -52,10 +62,19 @@ export function SignUpScreen({navigation}: AuthScreenProps<'SignUpScreen'>) {
 
       <FormTextInput
         control={control}
-        name="fullName"
+        name="firstName"
         autoCapitalize="words"
-        label="Full Name"
-        placeholder="Full Name"
+        label="First Name"
+        placeholder="First Name"
+        boxProps={{mb: 's20'}}
+      />
+
+      <FormTextInput
+        control={control}
+        name="lastName"
+        autoCapitalize="words"
+        label="Last Name"
+        placeholder="Last Name"
         boxProps={{mb: 's20'}}
       />
 
@@ -76,6 +95,7 @@ export function SignUpScreen({navigation}: AuthScreenProps<'SignUpScreen'>) {
       />
 
       <Button
+        loading={isLoading}
         disabled={!formState.isValid}
         onPress={handleSubmit(submitForm)}
         title="Sign Up"
