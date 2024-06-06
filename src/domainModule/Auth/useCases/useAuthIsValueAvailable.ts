@@ -32,7 +32,7 @@ function useAuthIsValueAvailable<T extends {length: number}>({
 
   return {
     isAvailable: !!data,
-    inUnavailable: data === false,
+    isUnavailable: data === false,
     isFetching: isFetching || isDebouncing,
   };
 }

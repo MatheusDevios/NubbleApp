@@ -1,10 +1,6 @@
 import React from 'react';
 
-import {
-  useAuthSignUp,
-  useAuthIsUsernameAvailable,
-  useAuthIsEmailAvailable,
-} from '@domain';
+import {useAuthSignUp} from '@domain';
 import {zodResolver} from '@hookform/resolvers/zod';
 import {useForm} from 'react-hook-form';
 
@@ -20,6 +16,7 @@ import {useResetNavigationSuccess} from '@hooks';
 import {AuthScreenProps, AuthStackParamList} from '@routes';
 
 import {SignUpSchema, signUpSchema} from './signUpSchema';
+import {useAsyncValidation} from './useAsyncValidation';
 
 const resetParam: AuthStackParamList['SuccessScreen'] = {
   title: 'Sign Up Successful.',
@@ -53,20 +50,9 @@ export function SignUpScreen({}: AuthScreenProps<'SignUpScreen'>) {
     signUp(formValues);
   }
 
-  const username = watch('username');
-  const usernameState = getFieldState('username');
-  const usernameIsValid = !usernameState.invalid && usernameState.isDirty;
-  const usernameQuery = useAuthIsUsernameAvailable({
-    username,
-    enabled: usernameIsValid,
-  });
-
-  const email = watch('email');
-  const emailState = getFieldState('email');
-  const emailIsValid = !emailState.invalid && emailState.isDirty;
-  const emailQuery = useAuthIsEmailAvailable({
-    email,
-    enabled: emailIsValid,
+  const {usernameValidation, emailValidation} = useAsyncValidation({
+    watch,
+    getFieldState,
   });
 
   return (
@@ -82,10 +68,10 @@ export function SignUpScreen({}: AuthScreenProps<'SignUpScreen'>) {
         placeholder="@"
         boxProps={{mb: 's20'}}
         errorMessage={
-          usernameQuery.inUnavailable ? 'Username is taken.' : undefined
+          usernameValidation.errorMessage ? 'Username is taken.' : undefined
         }
         RightComponent={
-          usernameQuery.isFetching ? (
+          usernameValidation.isFetching ? (
             <ActivityIndicator size="small" />
           ) : undefined
         }
@@ -116,10 +102,12 @@ export function SignUpScreen({}: AuthScreenProps<'SignUpScreen'>) {
         placeholder="Email"
         boxProps={{mb: 's20'}}
         errorMessage={
-          emailQuery.inUnavailable ? 'Username is taken.' : undefined
+          emailValidation.errorMessage ? 'Username is taken.' : undefined
         }
         RightComponent={
-          emailQuery.isFetching ? <ActivityIndicator size="small" /> : undefined
+          emailValidation.isFetching ? (
+            <ActivityIndicator size="small" />
+          ) : undefined
         }
       />
 
@@ -135,8 +123,8 @@ export function SignUpScreen({}: AuthScreenProps<'SignUpScreen'>) {
         loading={isLoading}
         disabled={
           !formState.isValid ||
-          usernameQuery.isFetching ||
-          usernameQuery.inUnavailable
+          usernameValidation.notReady ||
+          emailValidation.notReady
         }
         onPress={handleSubmit(submitForm)}
         title="Sign Up"
