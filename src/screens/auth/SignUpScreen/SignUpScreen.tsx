@@ -1,6 +1,10 @@
 import React from 'react';
 
-import {useAuthSignUp, useAuthIsUsernameAvailable} from '@domain';
+import {
+  useAuthSignUp,
+  useAuthIsUsernameAvailable,
+  useAuthIsEmailAvailable,
+} from '@domain';
 import {zodResolver} from '@hookform/resolvers/zod';
 import {useForm} from 'react-hook-form';
 
@@ -57,6 +61,14 @@ export function SignUpScreen({}: AuthScreenProps<'SignUpScreen'>) {
     enabled: usernameIsValid,
   });
 
+  const email = watch('email');
+  const emailState = getFieldState('email');
+  const emailIsValid = !emailState.invalid && emailState.isDirty;
+  const emailQuery = useAuthIsEmailAvailable({
+    email,
+    enabled: emailIsValid,
+  });
+
   return (
     <Screen canGoBack scrollable>
       <Text preset="headingLarge" mb="s32">
@@ -68,10 +80,10 @@ export function SignUpScreen({}: AuthScreenProps<'SignUpScreen'>) {
         name="username"
         label="Username"
         placeholder="@"
+        boxProps={{mb: 's20'}}
         errorMessage={
           usernameQuery.inUnavailable ? 'Username is taken.' : undefined
         }
-        boxProps={{mb: 's20'}}
         RightComponent={
           usernameQuery.isFetching ? (
             <ActivityIndicator size="small" />
@@ -103,6 +115,12 @@ export function SignUpScreen({}: AuthScreenProps<'SignUpScreen'>) {
         label="Email"
         placeholder="Email"
         boxProps={{mb: 's20'}}
+        errorMessage={
+          emailQuery.inUnavailable ? 'Username is taken.' : undefined
+        }
+        RightComponent={
+          emailQuery.isFetching ? <ActivityIndicator size="small" /> : undefined
+        }
       />
 
       <FormPasswordTextInput
