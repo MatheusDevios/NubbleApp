@@ -2,6 +2,7 @@ export enum QueryKeys {
   UserGetById = 'UserGetById',
   PostList = 'PostList',
   PostCommentList = 'PostCommentList',
+  IsUserNameAvailable = 'IsUserNameAvailable',
 }
 
 export interface UsePaginatedListResult<TData> {
