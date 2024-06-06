@@ -1,21 +1,29 @@
 import React from 'react';
 
+import {useAuthRequestNewPassword} from '@domain';
 import {zodResolver} from '@hookform/resolvers/zod';
+import {useToastService} from '@services';
 import {useForm} from 'react-hook-form';
 
 import {Button, Screen, Text, FormTextInput} from '@components';
 import {useResetNavigationSuccess} from '@hooks';
-import {AuthScreenProps} from '@routes';
+import {AuthScreenProps, AuthStackParamList} from '@routes';
 
 import {
   ForgotPasswordSchema,
   forgotPasswordSchema,
 } from './forgotPasswordSchema';
 
-export const ForgotPasswordScreen = ({
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  navigation,
-}: AuthScreenProps<'ForgotPasswordScreen'>) => {
+const resetParam: AuthStackParamList['SuccessScreen'] = {
+  title: `We sent the instructions ${'\n'}to your e-mail`,
+  description: 'Click on the link we sent you to reset your password.',
+  icon: {
+    name: 'messageRound',
+    color: 'primary',
+  },
+};
+
+export function ForgotPasswordScreen({}: AuthScreenProps<'ForgotPasswordScreen'>) {
   const {control, formState, handleSubmit} = useForm<ForgotPasswordSchema>({
     resolver: zodResolver(forgotPasswordSchema),
     defaultValues: {
@@ -25,12 +33,14 @@ export const ForgotPasswordScreen = ({
   });
 
   const {reset} = useResetNavigationSuccess();
-  const submitForm = () => {
-    reset({
-      title: 'Check your email',
-      description: 'We sent you the instructions to modify your password.',
-      icon: {name: 'messageRound', color: 'primary'},
-    });
+  const {showToast} = useToastService();
+  const {requestNewPassword, isLoading} = useAuthRequestNewPassword({
+    onSuccess: () => reset(resetParam),
+    onError: message => showToast({message, type: 'error'}),
+  });
+
+  const submitForm = (values: ForgotPasswordSchema) => {
+    requestNewPassword(values.email);
   };
 
   return (
@@ -50,6 +60,7 @@ export const ForgotPasswordScreen = ({
         boxProps={{mb: 's20'}}
       />
       <Button
+        loading={isLoading}
         disabled={!formState.isValid}
         onPress={handleSubmit(submitForm)}
         title="Forgot Password"
@@ -57,4 +68,4 @@ export const ForgotPasswordScreen = ({
       />
     </Screen>
   );
-};
+}
