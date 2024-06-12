@@ -47,8 +47,8 @@ async function requestNewPassword(email: string): Promise<string> {
   return message;
 }
 
-async function refreshToken(refreshToken: string): Promise<AuthCredentials> {
-  const authAPI = await authApi.refreshToken(refreshToken);
+async function refreshToken(refreshedToken: string): Promise<AuthCredentials> {
+  const authAPI = await authApi.refreshToken(refreshedToken);
 
   const authCredentials = authAdapter.toAuthCredentials(authAPI);
   return authCredentials;
