@@ -3,6 +3,7 @@ import React, {createContext, useEffect, useState} from 'react';
 import {api} from '@api';
 import {AuthCredentials, authService} from '@domain';
 
+import {authApi} from '../../../domainModule/Auth/authApi';
 import {authCredentialsStorage} from '../authCredentialsStorage';
 import {AuthCredentialServices} from '../authCredentialsType';
 
@@ -20,23 +21,37 @@ export const AuthCredentialsProvider = ({
     useState<AuthCredentials | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
+  //§ useEffect to load credentials from storage when component mounts and update state.
   useEffect(() => {
     // authCredentialsStorage.remove();
     loadCredentials();
   }, []);
 
+  // useEffect to handle token expiration and refresh token logic,
+  // to see if the token is expired and refresh it.
+  //TODO: Refactor this to a custom hook
   useEffect(() => {
     const interceptor = api.interceptors.response.use(
       response => response,
       async responseError => {
+        const failedRequest = responseError.config;
+        const isFromRefreshTokenRequest =
+          authApi.isRefreshTokenRequest(failedRequest);
         const status = responseError.response.status;
+
         if (status === 401) {
-          if (!authCredentials?.refreshToken) {
+          if (
+            !authCredentials?.refreshToken ||
+            isFromRefreshTokenRequest ||
+            failedRequest.sent
+          ) {
             await removeCredentials();
             return Promise.reject(responseError);
           }
 
-          const failedRequest = responseError.config;
+          // marks the request as sent to avoid infinite loop.
+          failedRequest.sent = true;
+
           const newAuthCredentials = await authService.refreshToken(
             authCredentials?.refreshToken,
           );
