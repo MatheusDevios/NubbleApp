@@ -11,6 +11,7 @@ type InterceptorProps = {
   removeCredentials: () => Promise<void>;
 };
 
+// This function will be used to register an interceptor that will refresh the token when it expires.
 export function registerInterceptor({
   authCredentials,
   saveCredentials,
