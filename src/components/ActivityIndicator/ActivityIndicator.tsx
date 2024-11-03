@@ -12,7 +12,10 @@ interface ActivityIndicatorProps
   color?: ThemeColors;
 }
 
-export function ActivityIndicator({color = 'primary'}: ActivityIndicatorProps) {
+export function ActivityIndicator({
+  color = 'primary',
+  ...rest
+}: ActivityIndicatorProps) {
   const {colors} = useAppTheme();
-  return <RNActivityIndicator color={colors[color]} />;
+  return <RNActivityIndicator color={colors[color]} {...rest} />;
 }
