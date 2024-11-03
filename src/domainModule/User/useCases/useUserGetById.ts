@@ -1,3 +1,4 @@
+/* eslint-disable testing-library/no-await-sync-queries */
 import {QueryKeys} from '@infra';
 import {useQuery} from '@tanstack/react-query';
 

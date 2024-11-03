@@ -1,3 +1,4 @@
+/* eslint-disable testing-library/no-await-sync-queries */
 import {userAdapter} from './userAdapter';
 import {userApi} from './userApi';
 import {User} from './userTypes';

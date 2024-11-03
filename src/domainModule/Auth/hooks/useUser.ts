@@ -1,5 +1,10 @@
+import {useAuthCredentials} from '@services';
+
 export function useUser() {
+  const {authCredentials} = useAuthCredentials();
+  const userId = authCredentials?.user.id;
+
   return {
-    id: 3,
+    id: userId || 0,
   };
 }
