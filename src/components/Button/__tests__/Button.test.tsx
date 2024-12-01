@@ -41,7 +41,7 @@ describe('<Button/>', () => {
     expect(titleElement).toHaveStyle({color: theme.colors.gray2});
   });
 
-  it('when button is loading: it shows active indicator, it hides the button title and disables onPress function', () => {
+  it('when button is loading: it shows active indicator, it hides the button title and disables the onPress function', () => {
     const mockedOnPress = jest.fn();
     const {loadingElement, titleElement, buttonElement} = renderButton({
       loading: true,
