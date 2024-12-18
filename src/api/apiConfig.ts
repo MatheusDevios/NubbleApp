@@ -1,8 +1,11 @@
 import {AuthCredentials, authService} from '@domain';
 import axios from 'axios';
 
+// This is the base URL of the API. It is important to note that the Android emulator uses the IP in use below, but if you are using an iOS emulator,
+// you should use the IP commented out below. If you are using a physical device, you should use the IP of the machine/server where the API is running.
 export const api = axios.create({
-  baseURL: 'http://127.0.0.1:3333/',
+  baseURL: 'http://10.0.2.2:3333/',
+  // baseURL: 'http://127.0.0.1:3333/',
 });
 
 type InterceptorProps = {
