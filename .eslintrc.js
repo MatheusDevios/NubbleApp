@@ -2,6 +2,7 @@ module.exports = {
   root: true,
   extends: [
     '@react-native',
+    'plugin:prettier/recommended',
     'plugin:@tanstack/eslint-plugin-query/recommended',
   ],
   plugins: ['import', '@tanstack/query'],
@@ -42,6 +43,12 @@ module.exports = {
               caseInsensitive: true,
             },
             'newlines-between': 'always',
+          },
+        ],
+        'prettier/prettier': [
+          'error',
+          {
+            endOfLine: 'auto',
           },
         ],
       },
