@@ -12,7 +12,7 @@ interface Variables {
 
 export function useAuthSignIn(options?: MutationOptions<AuthCredentials>) {
   const {saveCredentials} = useAuthCredentials();
-  const {mutate, isLoading, isSuccess} = useMutation<
+  const {mutate, isLoading, isSuccess, isError} = useMutation<
     AuthCredentials,
     Error,
     Variables
@@ -25,6 +25,9 @@ export function useAuthSignIn(options?: MutationOptions<AuthCredentials>) {
       }
     },
     onSuccess: authCredentials => {
+      if (options?.onSuccess) {
+        options.onSuccess(authCredentials);
+      }
       // being made at the AuthCredentialsProvider as every time the credentials are saved, the token is updated
       // and also when the app is reloaded the token has to be updated from the storage.
       // authService.updateToken(authCredentials.token);
@@ -36,5 +39,6 @@ export function useAuthSignIn(options?: MutationOptions<AuthCredentials>) {
     isLoading,
     signIn: (variables: Variables) => mutate(variables),
     isSuccess,
+    isError,
   };
 }
