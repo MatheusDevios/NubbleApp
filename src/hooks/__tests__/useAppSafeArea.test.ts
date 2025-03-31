@@ -5,7 +5,15 @@ import {theme} from '@theme';
 
 import {useAppSafeArea} from '../useAppSafeArea';
 
-jest.mock('react-native-safe-area-context');
+// Mocking the useSafeAreaInsets hook from react-native-safe-area-context
+// This is necessary because the useSafeAreaInsets hook is used in the useAppSafeArea hook
+jest.mock('react-native-safe-area-context', () => {
+  // Mocking the useSafeAreaInsets hook to return a fixed value for testing purposes
+  return {
+    ...jest.requireActual('react-native-safe-area-context/jest/mock'),
+    useSafeAreaInsets: jest.fn(),
+  };
+});
 
 const mockedUseSafeAreaInsets = jest.mocked(useSafeAreaInsets);
 
