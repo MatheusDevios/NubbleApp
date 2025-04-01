@@ -10,3 +10,4 @@ export * from './PostComment/useCases/usePostCommentCreate';
 export * from './PostComment/useCases/usePostCommentRemove';
 export * from './Auth';
 export * from './User';
+export {POST_COMMENT_PATH} from './PostComment/postCommentApi';
