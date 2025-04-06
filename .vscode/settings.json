@@ -3,5 +3,8 @@
   "cSpell.words": ["hookform", "MMKV", "Pressable", "tanstack", "Zustand"],
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit"
-  }
+  },
+  "github-actions.workflows.pinned.workflows": [
+    ".github/workflows/pull-request-checks.yml"
+  ]
 }
