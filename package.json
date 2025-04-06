@@ -11,7 +11,8 @@
     "test": "jest",
     "prepare": "husky install",
     "art:3333": "adb reverse tcp:3333 tcp:3333",
-    "ap": "adb shell input text"
+    "ap": "adb shell input text",
+    "pre-commit": "yarn lint && yarn tsc --noEmit && yarn test"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.4",
