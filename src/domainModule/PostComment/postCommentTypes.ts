@@ -1,3 +1,5 @@
+import {UserAPI} from '../User';
+
 export interface PostComment {
   id: number; // 117;
   message: string;
@@ -19,16 +21,7 @@ export interface PostCommentAPI {
   created_at: string;
   updated_at: string;
   //   post: Post;
-  user: {
-    id: number; // 6;
-    first_name: string; // 'Samuel';
-    last_name: string; // 'Vilar';
-    username: string; //  'samuelvilar';
-    email: string; //'samu.vilar@coffstack.com';
-    profile_url: string; // 'https://nubble-development.s3.sa-east-1.amazonaws.com/backend-integration/5-samuel.png';
-    is_online: boolean; //false;
-    full_name: string; //'Samuel Vilar';
-  };
+  user: UserAPI;
   meta: any;
 }
 
