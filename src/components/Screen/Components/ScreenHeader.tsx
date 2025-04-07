@@ -30,7 +30,7 @@ export function ScreenHeader({
           onPress={() => navigation.goBack()}
           flexDirection="row"
           alignItems="center"
-          mr="s8">
+          mr="s10">
           <Icon size={ICON_SIZE} name="arrowLeft" color="primary" />
           {showBackLabel && (
             <Text preset="paragraphMedium" semiBold ml="s8">
