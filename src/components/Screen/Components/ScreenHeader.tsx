@@ -4,11 +4,21 @@ import {useNavigation} from '@react-navigation/native';
 
 import {Box, TouchableOpacityBox, Icon, Text, ScreenProps} from '@components';
 
-type ScreenHeaderProps = Pick<ScreenProps, 'canGoBack' | 'title'>;
+type ScreenHeaderProps = Pick<
+  ScreenProps,
+  'canGoBack' | 'title' | 'HeaderComponent'
+>;
 
-export function ScreenHeader({canGoBack, title}: ScreenHeaderProps) {
+export function ScreenHeader({
+  canGoBack,
+  title,
+  HeaderComponent,
+}: ScreenHeaderProps) {
   const navigation = useNavigation();
+
+  const showBackLabel = !title && !HeaderComponent;
   const ICON_SIZE = 20;
+
   return (
     <Box
       flexDirection="row"
@@ -19,15 +29,17 @@ export function ScreenHeader({canGoBack, title}: ScreenHeaderProps) {
         <TouchableOpacityBox
           onPress={() => navigation.goBack()}
           flexDirection="row"
-          alignItems="center">
+          alignItems="center"
+          mr="s8">
           <Icon size={ICON_SIZE} name="arrowLeft" color="primary" />
-          {!title && (
+          {showBackLabel && (
             <Text preset="paragraphMedium" semiBold ml="s8">
               Back
             </Text>
           )}
         </TouchableOpacityBox>
       )}
+      {HeaderComponent}
       {title && <Text preset="headingSmall">{title}</Text>}
       {title && <Box width={ICON_SIZE} />}
     </Box>
