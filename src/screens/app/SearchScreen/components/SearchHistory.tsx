@@ -15,7 +15,9 @@ export function SearchHistory() {
     <Box>
       <FlatList
         ListHeaderComponent={
-          <Text preset="headingMedium">Recent Searches</Text>
+          <Text mb="s8" preset="headingMedium">
+            Recent Searches
+          </Text>
         }
         data={userList}
         renderItem={renderItem}
