@@ -1,7 +1,7 @@
 import {create} from 'zustand';
 import {persist} from 'zustand/middleware';
 
-import {storage} from '../storage';
+import {storage} from '../Storage';
 
 import {SearchHistoryService} from './searchHistoryType';
 
